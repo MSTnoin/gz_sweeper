@@ -1,5 +1,8 @@
 import os
 import sys
+import winreg
+import re
+
 
 # stellaris游戏工坊
 # D:\Program Files (x86)\Steam\steamapps\workshop\content\281990
@@ -7,10 +10,39 @@ import sys
 gz_dir = "2131014154"
 
 if __name__ == '__main__':
-    if not os.getcwd().endswith('281990'):
-        print('需要放置在steam创意工坊目录下。281990')
+    try:
+        # 获取steam根目录
+        hkey = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\WOW6432Node\Valve\Steam")
+        steam_path = winreg.QueryValueEx(hkey, "InstallPath")
+    except:
+        print('无法找到Steam目录')
         input("请按回车键退出。")
         sys.exit(0)
+        
+    # 打开libraryfolders.vdf以寻找玩家steam库
+    lib_folders = open(os.path.join(steam_path[0], 'steamapps/libraryfolders.vdf'))
+
+    try:
+        # 看某个库里是否有游戏281990
+        game_id = '-1'
+        for line in lib_folders:
+            path_search = re.match('		"path"		"(.*)"', line)
+            if path_search:
+                lib_path = path_search.group(1)
+
+            game_search = re.match('			"(\d+)"', line)
+            if game_search:
+                game_id = game_search.group(1)
+
+            if game_id == '281990':
+                ste_path = os.path.join(lib_path, 'steamapps/workshop/content/281990')
+                print(ste_path)
+    except:
+        print('无法找到群星创意工坊目录')
+        input("请按回车键退出。")
+        sys.exit(0)
+
+    os.chdir(ste_path)
 
     stellaris = r'.'
     mod_names = os.listdir(stellaris)
