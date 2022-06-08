@@ -23,7 +23,7 @@ if __name__ == '__main__':
     mod_names = [i for i in mod_names if os.path.isdir(os.path.join(stellaris, i))]
 
     gz_files = set()
-    # 装入鸽组目录
+    # 读入鸽组文件
     gz_full_path = os.path.join(stellaris, gz_dir)
     print("鸽组内部的同名文件：")
     for root, dirs, files in os.walk(gz_full_path):
