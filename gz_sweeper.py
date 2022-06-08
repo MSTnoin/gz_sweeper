@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
             if game_id == '281990':
                 ste_path = os.path.join(lib_path, 'steamapps/workshop/content/281990')
-                print(ste_path)
+
     except:
         print('无法找到群星创意工坊目录')
         input("请按回车键退出。")
