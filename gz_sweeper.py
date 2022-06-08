@@ -3,7 +3,6 @@ import sys
 import winreg
 import re
 
-
 # stellaris游戏工坊
 # D:\Program Files (x86)\Steam\steamapps\workshop\content\281990
 # 鸽组汉化的id
