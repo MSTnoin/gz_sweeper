@@ -47,6 +47,8 @@ def goto_steam_stellaris_workshop_folder():
                     os.chdir(ste_path)
         except:
             print('无法找到Steam stellaris创意工坊目录。')
+            input("请按回车键退出。")
+            sys.exit(0)
 
 
 if __name__ == '__main__':
